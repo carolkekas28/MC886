@@ -3,7 +3,7 @@
 **MC886 — Introdução ao Aprendizado de Máquina**  
 **Tema:** Seleção de modelos e regularização
 
-Perguntas e respostas extraídas do [notebook traduzido](/home/francisco_vinicius_guedes/repos/externos/mc886/MC886/trab2/mc886_2s2026_assignment_2_traduzido.ipynb). As respostas existentes foram mantidas; as questões ainda sem resposta estão indicadas como pendentes. As figuras são as saídas salvas da execução do notebook.
+Perguntas e respostas extraídas do [notebook traduzido](./mc886_2s2026_assignment_2_traduzido.ipynb). As respostas existentes foram mantidas; as questões ainda sem resposta estão indicadas como pendentes. As figuras são as saídas salvas da execução do notebook.
 
 ## 1. Análise e pré-processamento dos dados
 
@@ -21,7 +21,7 @@ Não há evidências fortes de que o mecanismo de corrupção em si dependa da c
 
 A distribuição das intensidades dos pixels, as frações de pixels com valores extremos, as médias por imagem e as variâncias por imagem também são muito semelhantes entre os regimes de dados escassos, parciais e completos. Isso reforça a ideia de que os conjuntos de dados são amostrados essencialmente do mesmo processo de geração de dados corrompidos.
 
-![Amostras corrompidas organizadas por classe de dígito.](/home/francisco_vinicius_guedes/repos/externos/mc886/MC886/trab2/imagens_respostas/amostras_por_digito.png)
+![Amostras corrompidas organizadas por classe de dígito.](./imagens_respostas/amostras_por_digito.png)
 
 *Amostras corrompidas organizadas por classe de dígito.*
 
@@ -33,11 +33,11 @@ A distribuição das intensidades dos pixels, as frações de pixels com valores
 
 A corrupção se transforma em um fundo tênue porque os traços adicionados variam em posição e orientação entre as amostras, de modo que são diluídos quando se calcula a média das imagens. Em contrapartida, a estrutura dos dígitos está alinhada de forma mais consistente e, por isso, permanece visível. Isso mostra que as imagens médias, por si só, podem ocultar uma corrupção estruturada e específica de cada amostra. Portanto, também são necessárias amostras individuais e estatísticas como a variância por pixel.
 
-![Imagens médias por classe nos regimes de dados escassos, parciais e completos.](/home/francisco_vinicius_guedes/repos/externos/mc886/MC886/trab2/imagens_respostas/medias_por_classe.png)
+![Imagens médias por classe nos regimes de dados escassos, parciais e completos.](./imagens_respostas/medias_por_classe.png)
 
 *Imagens médias por classe nos regimes de dados escassos, parciais e completos.*
 
-![Mapas de média e variância por pixel e por classe nos três regimes de dados.](/home/francisco_vinicius_guedes/repos/externos/mc886/MC886/trab2/imagens_respostas/mapas_media_variancia.png)
+![Mapas de média e variância por pixel e por classe nos três regimes de dados.](./imagens_respostas/mapas_media_variancia.png)
 
 *Mapas de média e variância por pixel e por classe nos três regimes de dados.*
 
@@ -64,11 +64,11 @@ A análise exploratória sugere que a distribuição da corrupção em si é mui
 - *Regime de dados parciais*: o efeito observado no regime de dados escassos provavelmente será reduzido, pois o modelo observa uma variedade maior de realizações da corrupção. É menos provável que padrões espúrios permaneçam consistentemente associados a uma classe, embora o sobreajuste ainda possa ocorrer em modelos suficientemente flexíveis.
 - *Regime de dados completos*: deve ser o mais robusto. Com muitos exemplos, a corrupção específica de cada amostra deve se diluir estatisticamente, enquanto as características que identificam consistentemente cada dígito continuam sendo preditivas. Assim, o modelo dispõe de mais evidências para separar a estrutura estável dos dígitos da corrupção instável.
 
-![Distribuições das intensidades dos pixels não nulos nos três regimes de dados.](/home/francisco_vinicius_guedes/repos/externos/mc886/MC886/trab2/imagens_respostas/distribuicao_intensidades.png)
+![Distribuições das intensidades dos pixels não nulos nos três regimes de dados.](./imagens_respostas/distribuicao_intensidades.png)
 
 *Distribuições das intensidades dos pixels não nulos nos três regimes de dados.*
 
-![Distribuições da média e da variância das intensidades por imagem em cada regime.](/home/francisco_vinicius_guedes/repos/externos/mc886/MC886/trab2/imagens_respostas/estatisticas_por_imagem.png)
+![Distribuições da média e da variância das intensidades por imagem em cada regime.](./imagens_respostas/estatisticas_por_imagem.png)
 
 *Distribuições da média e da variância das intensidades por imagem em cada regime.*
 
@@ -110,25 +110,25 @@ Compare os modelos: em que eles diferem?
 - O regime de dados escassos (Scarce) se distancia dos outros dois desde cedo e atinge o melhor ajuste aos dados de treinamento, com acurácia final de **0,9210** e perda final de **0,3801**.
 - Os regimes de dados parciais (Partial) e completos (Full) permanecem muito próximos durante todo o treinamento, terminando com acurácia/perda de **0,8665** / **0,5210** e **0,8584** / **0,5388**, respectivamente.
 
-![Perda e acurácia de treinamento dos modelos sem regularização ao longo das iterações.](/home/francisco_vinicius_guedes/repos/externos/mc886/MC886/trab2/imagens_respostas/baseline_perda_acuracia.png)
+![Perda e acurácia de treinamento dos modelos sem regularização ao longo das iterações.](./imagens_respostas/baseline_perda_acuracia.png)
 
 *Perda e acurácia de treinamento dos modelos sem regularização ao longo das iterações.*
 
 **Imagens dos pesos e distribuições produzidas no notebook:**
 
-![Pesos aprendidos pelo modelo de referência no regime de dados escassos (Scarce).](/home/francisco_vinicius_guedes/repos/externos/mc886/MC886/trab2/imagens_respostas/pesos_dados_escassos.png)
+![Pesos aprendidos pelo modelo de referência no regime de dados escassos (Scarce).](./imagens_respostas/pesos_dados_escassos.png)
 
 *Pesos aprendidos pelo modelo de referência no regime de dados escassos (Scarce).*
 
-![Pesos aprendidos pelo modelo de referência no regime de dados parciais (Partial).](/home/francisco_vinicius_guedes/repos/externos/mc886/MC886/trab2/imagens_respostas/pesos_dados_parciais.png)
+![Pesos aprendidos pelo modelo de referência no regime de dados parciais (Partial).](./imagens_respostas/pesos_dados_parciais.png)
 
 *Pesos aprendidos pelo modelo de referência no regime de dados parciais (Partial).*
 
-![Pesos aprendidos pelo modelo de referência no regime de dados completos (Full).](/home/francisco_vinicius_guedes/repos/externos/mc886/MC886/trab2/imagens_respostas/pesos_dados_completos.png)
+![Pesos aprendidos pelo modelo de referência no regime de dados completos (Full).](./imagens_respostas/pesos_dados_completos.png)
 
 *Pesos aprendidos pelo modelo de referência no regime de dados completos (Full).*
 
-![Distribuições dos pesos dos modelos de referência nos três regimes de dados.](/home/francisco_vinicius_guedes/repos/externos/mc886/MC886/trab2/imagens_respostas/distribuicao_pesos.png)
+![Distribuições dos pesos dos modelos de referência nos três regimes de dados.](./imagens_respostas/distribuicao_pesos.png)
 
 *Distribuições dos pesos dos modelos de referência nos três regimes de dados.*
 
