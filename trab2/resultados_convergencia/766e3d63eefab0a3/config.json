@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "seed": 42,
+  "n_splits": 3,
+  "lr": 0.1,
+  "lambda_grid": [
+    0.0,
+    1e-05,
+    0.0001,
+    0.001,
+    0.01,
+    0.1
+  ],
+  "candidates": [
+    [
+      "Baseline",
+      0.0
+    ],
+    [
+      "L1",
+      1e-05
+    ],
+    [
+      "L1",
+      0.0001
+    ],
+    [
+      "L1",
+      0.001
+    ],
+    [
+      "L1",
+      0.01
+    ],
+    [
+      "L1",
+      0.1
+    ],
+    [
+      "L2",
+      1e-05
+    ],
+    [
+      "L2",
+      0.0001
+    ],
+    [
+      "L2",
+      0.001
+    ],
+    [
+      "L2",
+      0.01
+    ],
+    [
+      "L2",
+      0.1
+    ]
+  ],
+  "optimizer": "SGD; momentum=0; weight_decay=0",
+  "preprocessing": "float32; flatten; divide by 255 (no fitted statistics)",
+  "objective": "mean cross-entropy + lambda * sum(abs(W) or W**2); bias unpenalized",
+  "metric_timing": "after iteration updates; iteration 0 = initialization",
+  "validation": "unpenalized cross-entropy and accuracy; no test data",
+  "implementation_sha256": "ad10fd367746c2ec134b16733e052e9edc3dbe12309b194d71ece6739b5e8cc6",
+  "python": "3.14.8",
+  "torch": "2.14.1+cu130",
+  "numpy": "2.3.5",
+  "sklearn": "1.9.1",
+  "device": "cpu",
+  "dtype": "float32",
+  "num_threads": 2,
+  "datasets": {
+    "Scarce": {
+      "X_sha256": "466e98c983113575f756e63e1e124623cfb5f822285678c23ceb02b53165e530",
+      "y_sha256": "a9da55031b786a51e94219567da483c5b8fb72e2e7945a55d3c06535025576cb",
+      "shape": [
+        1000,
+        28,
+        28,
+        1
+      ],
+      "n_samples": 1000
+    },
+    "Partial": {
+      "X_sha256": "4addd3a50bbd3796d3e5a49dab3c2876683835aaae4c65ad828208615bf94d21",
+      "y_sha256": "94fabd2866f4c9deb3242e9ca8b416924d55928e293e2e9b33c9da76d9879414",
+      "shape": [
+        10000,
+        28,
+        28,
+        1
+      ],
+      "n_samples": 10000
+    },
+    "Full": {
+      "X_sha256": "8f4e5992626a95a17de8f8b2dd2ccf6342d40a9abefc16e2c9ee27b6db60fc7d",
+      "y_sha256": "d87d1d4318e28361ed81b8184af9b409d07e04a60111a21c7f132c73545b191a",
+      "shape": [
+        60000,
+        28,
+        28,
+        1
+      ],
+      "n_samples": 60000
+    }
+  }
+}
