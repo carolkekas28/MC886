@@ -152,30 +152,58 @@ Examine as imagens dos pesos dos modelos escolhidos e descreva o que observa.
 
 ### Questão 3
 
+The regimes differ in the number of training images: **Scarce** uses 1,000 images, **Partial** uses 10,000, and **Full** uses 60,000. All three contain the same type of corruption, consisting of artificial strokes; impulse noise (*salt-and-pepper*) belongs to a separate test distribution.
+
+Each regime has its own baseline and its own L1 and L2 models selected through cross-validation. After selection, the final model is trained on all the data available in that regime. When the selected value is $\lambda=0$, the model is identical to that regime's baseline.
+
+| Regime | Selected $\lambda$ — L1 | Selected $\lambda$ — L2 |
+|--------|-------------------------|-------------------------|
+| Scarce | $10^{-4}$ | $0$ |
+| Partial | $0$ | $0$ |
+| Full | $0$ | $0$ |
+
+Selection uses the highest mean validation accuracy; exact ties are resolved by choosing the smallest $\lambda$.
+
 #### Item (a)
 
 **Pergunta:** À medida que $\lambda$ aumenta na regularização L2, como a acurácia de validação cruzada muda em cada regime de dados?
 Há valores ótimos claros ou a acurácia atinge um patamar? A diferença entre o melhor $\lambda$ e seus vizinhos é maior que o desvio padrão entre as partições?
 
-*Resposta pendente.*
+**Answer:**
+
+Across all three regimes, L2 validation accuracy shows a plateau for small values of $\lambda$. The highest means occurred at $\lambda=0$: approximately **81.50% for Scarce**, **85.57% for Partial**, and **85.69% for Full**. The differences from neighboring candidates are smaller than the standard deviations across folds, approximately **1.23**, **0.80**, and **0.22 percentage points**, respectively. Therefore, no positive value of $\lambda$ is clearly superior. This comparison is descriptive and is not a statistical significance test.
+
+With stronger regularization, performance decreases: at $\lambda=0.1$, accuracy is approximately **80.60%**, **82.67%**, and **82.75%**, respectively. L2 reduces coefficient magnitudes and, when excessive, can restrict learning and cause underfitting. This does not imply setting coefficients exactly to zero, nor does it require accuracy to decrease strictly monotonically with every increase in $\lambda$.
 
 #### Item (b)
 
 **Pergunta:** Compare as imagens dos pesos do modelo L2 selecionado por validação cruzada, do modelo L1 selecionado por validação cruzada e do modelo de referência sem regularização. Quais diferenças você observa em termos de estrutura e esparsidade?
 
-*Resposta pendente.*
+**Answer:**
+
+For Partial and Full, both L1 and L2 selected $\lambda=0$. Thus, the selected models are identical to the baseline and have the same weights and sparsity. For Scarce, L2 also selected $\lambda=0$, whereas L1 selected $\lambda=10^{-4}$. In the latter case, coefficient changes are small and preserve the overall structure of the weight maps, as also indicated by the points lying close to the diagonal in the paired-coefficient plot.
+
+Across the grid, differences become more apparent among candidates with stronger regularization: L1 can concentrate more coefficients near zero, whereas L2 shrinks their magnitudes more broadly. However, these candidates were not selected by cross-validation. Furthermore, weights near zero are not equivalent to exact zeros; the training procedure uses subgradient SGD with a fixed learning rate for L1. Excessive regularization can weaken useful features and cause underfitting.
 
 #### Item (c)
 
 **Pergunta:** Relacione as imagens dos pesos à estrutura da corrupção identificada na Parte 1. O modelo selecionado por validação cruzada parece ter suprimido o padrão da corrupção, amplificado esse padrão ou isso é ambíguo quando se observam apenas os pesos?
 
-*Resposta pendente.*
+**Answer:**
+
+In Part 1, we observed that the corruption produces strokes whose positions and orientations vary across images. The weight maps show structures related to the digits, but both types of strokes can occupy similar regions. Therefore, we cannot reliably identify which coefficients respond to the corruption.
+
+Since the selected models are identical or very close to the baseline, there is no clear visual evidence that they suppress or amplify the corruption. Even among candidates with strong regularization, shrinking coefficients can reduce both useful information and responses to noise. The conclusion remains ambiguous when examining weights alone. This does not mean that the corruption is irrelevant: cross-validation uses corrupted images for both training and validation and therefore does not isolate its impact relative to clean images.
 
 #### Item (d)
 
 **Pergunta:** **Preveja**, com base no que você observa nos pesos e nas curvas de validação cruzada, qual dos seus três modelos selecionados por validação cruzada (sem regularização / L2 / L1) você espera que tenha o melhor desempenho em imagens sem corrupção e qual terá o melhor desempenho em imagens com ruído impulsivo. Justifique sua previsão antes de ver qualquer resultado de teste.
 
-*Resposta pendente.*
+**Answer:**
+
+For Partial and Full, we predict the same performance for all three models on clean images and images with impulse noise, since the selected models are identical to the baseline and produce the same predictions. This equality holds within each regime; the Partial and Full models were trained on different datasets.
+
+For Scarce, L2 is also identical to the baseline. L1 applies weak regularization and provides a small validation gain: approximately **81.70% versus 81.50%** for the baseline, a difference of **0.20 percentage points**, which is smaller than the standard deviation across folds of approximately **1.29 percentage points** for the selected L1 model. We therefore expect similar performance, with insufficient evidence to identify a clear winner on either test distribution. A small advantage on corrupted validation images does not guarantee an advantage on clean images or images with impulse noise. This prediction is made without using test results.
 
 ## Parte 4. Teste
 
